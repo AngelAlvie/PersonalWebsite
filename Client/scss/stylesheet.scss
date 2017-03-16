@@ -2,6 +2,10 @@
 @import "extras/mixins.scss";
 @import "extras/placeholders.scss";
 
+//color themes:
+// yellow: #f7db09 rgb(247, 219, 9)
+//   gray: #444444 rgb(80, 80, 80)
+
 @font-face {
   font-family: 'Prime';
   src: url('../font/Prime-Light.otf') format("opentype");
@@ -83,10 +87,6 @@
 #about {
   background : {
     color:$background-color;
-    image: url("../img/mit.jpg");
-    repeat: no-repeat;
-    size: cover;
-    position:center;
   }
   text-align: center;
   font-family: Prime, monospace;

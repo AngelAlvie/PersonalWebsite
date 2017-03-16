@@ -3,6 +3,11 @@
   font-family: 'Prime';
   src: url("../font/Prime-Light.otf") format("opentype"); }
 
+/*color themes:
+ yellow: #f7db09 rgb(247, 219, 9)
+ gray: #505050 rgb(80, 80, 80)
+*/
+
 .affix {
   top: 0;
   width: 100%; }
@@ -18,21 +23,21 @@
   margin-right: 15px; }
 
 .text {
-  color: #000000;
+  color: #444444;
   font-family: Prime, monospace;
   font-size: 1.2em;
   text-decoration: none;
   background-color: none;
   font-weight: bold; }
   .text:hover {
-    color: #000000;
+    color: #444444;
     font-family: Prime, monospace;
     text-decoration: none;
     background-color: none;
     font-size: 1.2em;
     font-weight: bold; }
   .text:visited {
-    color: #000000;
+    color: #444444;
     font-family: Prime, monospace;
     text-decoration: none;
     background-color: none;
@@ -52,7 +57,7 @@
   background-size: cover;
   background-position: center;
   text-align: center;
-  color: #000000;
+  color: #444444;
   height: 780px; }
   #home h1 {
     font-family: Prime, monospace;
@@ -64,14 +69,10 @@
     font-weight: bold; }
 
 #about {
-  background-color: #FFFFFF;
-  background-image: url("../img/mit.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-color: #f7db09;
   text-align: center;
   font-family: Prime, monospace;
-  color: #000000;
+  color: #444444;
   height: 780px; }
   #about h1 {
     font-family: Prime, monospace;
@@ -83,7 +84,7 @@
 #résumé {
   font-family: Prime, monospace;
   text-align: center;
-  color: #000000;
+  color: #444444;
   height: 780px; }
   #résumé h1 {
     font-family: Prime, monospace;
@@ -96,7 +97,7 @@ canvas {
   position: absolute; }
 
 #canvasShell {
-  background-color: #FFFFFF;
+  background-color: #f7db09;
   float: left;
   position: relative;
   width: 100%;
