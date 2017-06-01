@@ -1,55 +1,139 @@
 <!DOCTYPE html>
 <head>
-<title>Angel Alvarez</title>
-  <meta charset="utf-8"/>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type = "text/css" href = "css/stylesheet.css"/>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-  <!-- Latest compiled and minified JavaScript -->
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" type="image/x-icon" href="img/logo.png" />
+  <title>alvareza | Home</title>
+  <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <script
+   src="https://code.jquery.com/jquery-3.1.1.min.js"
+   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+   crossorigin="anonymous"></script>
+  <script src="js/semantic.min.js"></script>
 </head>
 <body>
-  <!-- test button <button class="btn btn-success" onclick = "$(this).hide();">  Click me! </button>-->
-  <!--  include a drop down menu when screen is small-->
-  <div class="container-fluid">
-    <div class="row">
-      <ul class="nav nav-pills navbar-fixed-top" >
-        <li><a class="text goto-home" ><span class="glyphicon glyphicon-home "></span>  Home</a></li>
-        <li><a class="text goto-about"><span class="glyphicon glyphicon-user"></span>  About</a></li>
-        <li><a class="text goto-résumé"><span class="glyphicon glyphicon-list-alt"></span>  Résumé</a></li>
-        <li class="pull-right"><a href="gallery.html" class="text"><span class="glyphicon glyphicon-wrench"></span>  Gallery</a></li>
-        <li class="pull-right"><a href="blog.html" class="text"><span class="glyphicon glyphicon-comment"></span>  Blog</a></li>
-        <li class="pull-right"><a href="resources.html" class="text"><span class="glyphicon glyphicon-link"></span>  Resources</a></li>
-      </ul>
-    </div>
-    <div class="row">
-      <!-- Creates the canvas which is an animation setup using canvas. -->
-      <div id="canvasShell" class="col-xs-12">
-        <canvas id="interactiveCanvas"></canvas>
+<div class="ui massive top fixed inverted menu">
+  <div class="ui container">
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="home">
+        <div class="visible content">
+          <i class="home icon"></i>
+        </div>
+        <div class="hidden content">
+          Home
+        </div>
       </div>
     </div>
-    <section id="home" class = "row">
-      <h1></h1><br/><h1></h1><br/>
-      <h1>{Angel Alvarez}</h1>
-      <h3>{Computer Science}<h3>
-      <h3>{MIT Class of 2020}<h3>
-      <h3>{<a href="https://www.facebook.com/angel.alvarezii/"><img class="logo-link" src="img\FB-fLogo-Blue-broadcast-2.png"></img></a> <a href="https://twitter.com/angelgabalvarez"><img class="logo-link" src="img\Twitter_Logo_White_On_Blue.png"></img></a>}<h3>
-    </section>
-    <section id="about" class = "row">
-      <h1></h1><br/><h1></h1><br/>
-      <h1>{About Me}</h1>
-      <p></p>
-  </section>
-    <section id="résumé" class = "row">
-      <h1></h1><br/><h1></h1><br/>
-
-  </section>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="about">
+        <div class="visible content">
+          <i class="student icon"></i>
+        </div>
+        <div class="hidden content">
+          About
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="resume">
+        <div class="visible content">
+          <i class="file text icon"></i>
+        </div>
+        <div class="hidden content">
+          Résumé
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="gallery">
+        <div class="visible content">
+          <i class="table icon"></i>
+        </div>
+        <div class="hidden content">
+          Gallery
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="blog">
+        <div class="visible content">
+          <i class="newspaper icon"></i>
+        </div>
+        <div class="hidden content">
+          Blog
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="contact">
+        <div class="visible content">
+          <i class="mail icon"></i>
+        </div>
+        <div class="hidden content">
+          Contact
+        </div>
+      </div>
+    </div>
   </div>
-  <!--scripts to load bootstrap-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="js/index.js"></script>
-  <script src="js/canvas.js"></script>
+</div>
+<div class="ui tab full active" data-tab="home">
+  <div class="full center">
+    <div class="ui compact center aligned inverted segment">
+      <h1>{- Angel Alvarez -}</h1>
+      <h3>{- Computer Science -}</h3>
+      <h3>{- MIT Class of 2020 -}</h3>
+    </div>
+  </div>
+</div>
+<div class="ui tab full" data-tab="about">
+  <div class="full center">
+    <div class="ui text inverted segment">
+      <h1 class="ui header">under construction, please comeback later.</h1>
+    </div>
+  </div>
+</div>
+<div class="ui tab full" data-tab="resume">
+  <div class="full center">
+    <div class="ui text inverted segment">
+      <h1 class="ui header">under construction, please comeback later.</h1>
+    </div>
+  </div>
+</div>
+<div class="ui tab full" data-tab="gallery">
+  <div class="full center">
+    <div class="ui text inverted segment">
+      <h1 class="ui header">under construction, please comeback later.</h1>
+    </div>
+  </div>
+</div>
+<div class="ui tab full" data-tab="blog">
+  <div class="full center">
+    <div class="ui text inverted segment">
+      <h1 class="ui header">under construction, please comeback later.</h1>
+    </div>
+  </div>
+</div>
+<div class="ui tab full" data-tab="contact">
+  <div class="full center">
+    <div>
+      <a href="https://www.facebook.com/angel.alvarezii/" class="circular ui icon facebook massive button">
+        <i class="facebook icon"></i>
+      </a>
+      <a href="https://twitter.com/angelgabalvarez" class="circular ui icon twitter massive button">
+        <i class="twitter icon"></i>
+      </a>
+      <a href="https://github.com/AngelAlvie" class="circular ui icon massive black button">
+        <i class="github icon"></i>
+      </a>
+      <a href="mailto:alvareza@mit.edu" class="circular ui icon google plus massive button">
+        <i class="mail icon"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/angel-alvarez-mit/" class="circular ui icon linkedin massive button">
+        <i class="linkedin icon"></i>
+      </a>
+    </div>
+  </div>
+</div>
 </body>
+<!-- Scripts here -->
+<script src="js/index.js"></script>

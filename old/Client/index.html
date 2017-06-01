@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+<title>Angel Alvarez</title>
+  <meta charset="utf-8"/>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type = "text/css" href = "css/stylesheet.css"/>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+</head>
+<body>
+  <!-- test button <button class="btn btn-success" onclick = "$(this).hide();">  Click me! </button>-->
+  <!--  include a drop down menu when screen is small-->
+  <div class="container-fluid">
+    <div class="row">
+      <ul class="nav nav-pills navbar-fixed-top" >
+        <li><a class="text goto-home" ><span class="glyphicon glyphicon-home "></span>  Home</a></li>
+        <li><a class="text goto-about"><span class="glyphicon glyphicon-user"></span>  About</a></li>
+        <li><a class="text goto-résumé"><span class="glyphicon glyphicon-list-alt"></span>  Résumé</a></li>
+        <li class="pull-right"><a href="gallery.html" class="text"><span class="glyphicon glyphicon-wrench"></span>  Gallery</a></li>
+        <li class="pull-right"><a href="blog.html" class="text"><span class="glyphicon glyphicon-comment"></span>  Blog</a></li>
+        <li class="pull-right"><a href="resources.html" class="text"><span class="glyphicon glyphicon-link"></span>  Resources</a></li>
+      </ul>
+    </div>
+    <div class="row">
+      <!-- Creates the canvas which is an animation setup using canvas. -->
+      <div id="canvasShell" class="col-xs-12">
+        <canvas id="interactiveCanvas"></canvas>
+      </div>
+    </div>
+    <section id="home" class = "row">
+      <h1></h1><br/><h1></h1><br/>
+      <h1>{Angel Alvarez}</h1>
+      <h3>{Computer Science}<h3>
+      <h3>{MIT Class of 2020}<h3>
+      <h3>{<a href="https://www.facebook.com/angel.alvarezii/"><img class="logo-link" src="img\FB-fLogo-Blue-broadcast-2.png"></img></a> <a href="https://twitter.com/angelgabalvarez"><img class="logo-link" src="img\Twitter_Logo_White_On_Blue.png"></img></a>}<h3>
+    </section>
+    <section id="about" class = "row">
+      <h1></h1><br/><h1></h1><br/>
+      <h1>{About Me}</h1>
+      <p></p>
+  </section>
+    <section id="résumé" class = "row">
+      <h1></h1><br/><h1></h1><br/>
+
+  </section>
+  </div>
+  <!--scripts to load bootstrap-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="js/index.js"></script>
+  <script src="js/canvas.js"></script>
+</body>
