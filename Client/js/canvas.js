@@ -228,7 +228,7 @@ function web(nx,ny, size, scale) {
       for(var i = 0; i < this.connectionList.length; i++) {
           if (connection.toNode === this.connectionList[i].fromNode || connection.toNode === this.connectionList[i].toNode && this.connectionList[i].direction >= 1) {
             toNodeAlreadyConnected = true;
-            console.log("happened");
+            console.log("");
           }
       }
 
@@ -264,11 +264,11 @@ function web(nx,ny, size, scale) {
           tmpForm = ruleConstants.NONE;
       }
     }
-
+      console.log(tmpForm);
     this.rules = tmpForm;
     /* Check if any other connections are connected to that node, if not, then mark node for deletion*/
 
-    console.log(this.rules.length);
+    console.log("Rules here:" + this.rules.length);
     for (var i = 0; i < this.connectionList.length; i++) {
       var markConnection = true;
       for (var j = 0; j < this.rules.length; j++) {
@@ -352,16 +352,12 @@ var t = 0;
 
 /* now finally call the timer routine */
 var run = function() {
-  if (t % 1500 === 0) {
+  if (t % 1000 === 0) {
     render.shapeTransfrom(render.forms[0]);
     console.log("set to a brain");
-  } else if (t % 1500 === 500) {
+  } else if (t % 1000 === 500) {
     render.shapeTransfrom(render.forms[2]);
     console.log("Set to heart");
-  } else if (t % 1500 === 1000) {
-    render.shapeTransfrom(render.forms[4]);
-    console.log("set to random");
-
   }
   render.update();
   draw(canvas);
