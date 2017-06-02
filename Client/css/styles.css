@@ -1,4 +1,13 @@
 
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.txt {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 1.5em !important;
+  position: relative;
+  top: 75px;
+}
+
 body {
   background-image: url("../img/stata.jpg") !important;
 background-size: cover;
