@@ -1,4 +1,6 @@
 $(document).ready(function() {
-  console.log("document ready");
   $('.menu .item .button').tab();
+  $('.message .close').on('click', function() {
+    $(this).closest('.message').transition('fade');
+  });
 });

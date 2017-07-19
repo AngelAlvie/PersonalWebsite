@@ -16,6 +16,25 @@ background-size: cover;
   font-family: Prime, monospace !important;
 }
 
+/* used for terminal thingy */
+.head, .cursor {
+  color: #FF8000;
+}
+/* Just for testing*/
+.buffer {
+  background-color: #0000FF;
+}
+
+#term::-webkit-scrollbar {
+    width: 5px;
+}
+
+#term::-webkit-scrollbar-thumb {
+    background-color: #FF8000;
+    border-radius: 3px;
+    outline: 1px solid #FF8000;
+}
+
 .item {
   padding: 0px !important;
 }
