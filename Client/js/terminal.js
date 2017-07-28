@@ -18,20 +18,64 @@
 * getInputLog() - returns the input log
 * getOutputLog() = returns the output log
 */
+/** Here is the namespace of HTML classes that are in use:
+* cursor
+* cursor-solid
+* cursor-none
+* prev
+* next
+* buffer
+*/
+// NOTE:  PLEASE DONT USE THESE IN HTML CLASSES IN OTHER PLACES IN YOUR CODE
+
+// BUG: Cursor will create visual glitches and break if arrow keys are used to fast, maybe create a pause between keystrokes?
+// BUG: RELATED, typing space multiple times does not work, still shows up in log though,
+/** This stuff has nothing to do with terminals, it's just that I want to restrict the type of the protected methods and constructor */
+//TODO Guard all the functions;
+// I am using contracts to restrict the type of the input
+const createContract = function(type) {
+  if (typeof type === "string") {
+    return function(x) {
+      if (typeof x === type) {
+        return x;  //return original object
+      } else {
+        throw new TypeError("Expected " + type + ", but recieved " + typeof x);
+      }
+    }
+  } else {
+    throw new TypeError("createContract expects a string");
+  }
+}
+
+const bool = createContract('boolean');
+const num = createContract('number');
+const obj = createContract('object');
+const str = createContract('string');
+const func = createContract('function');
+const undef = createContract('undefined');
+
+// I know this isn't how maybe works, but it works for my purposes
+const maybe = function(contract, other) {
+  return function(item) {
+    if (item) {
+      return contract(item);
+    } else {
+      return other;
+    }
+  }
+}
 
 
 function Terminal(properties) {
   //these properties are optional, as such, they can be defined by the user, or it will default to
   obj(properties);
   var head = maybe(str, ">")(properties.head);
-  var compiler = maybe(func, function(string, Interactor) {return;})(properties.compiler);
-  var delay = maybe(num, 10)(properties.delay);
   // these objects are fixed with respect to the terminal.
   if (!properties.autoTyper) {
     properties.autoTyper = {
-      speed: 200,
-      momentum: 2,
-      accuracy: 0.98
+      speed: 250,
+      momentum: 4,
+      accuracy: 0.95
     }
   }
   const autoTyper = new AutoTyper(properties.autoTyper);
@@ -44,7 +88,9 @@ function Terminal(properties) {
   // queues that help asynchronously insert code
   var typeQueue = [];
   var outQueue = [];
-  var queue = [];  //runs these anonymous functions after the terminal is ready for them
+  var queue = []; //runs functions after the terminal is ready for them
+  var temp;
+  var inputIndex = 0;
   // state that helps with logic
   var writing = false; //if the terminal or the user is currently typing
   var writable = false; // if the terminal will allow the AutoTyper or user to type
@@ -103,7 +149,7 @@ function Terminal(properties) {
         }
         //Now we can actually print out to the terminal
         terminal.writeln(outQueue[0]);
-        outputLog.push(outQueue[0]);
+        outputLog.unshift(outQueue[0]);
         outQueue.shift();
         writable = true;
         //we want to process the queue here if we can.
@@ -137,7 +183,7 @@ function Terminal(properties) {
         cursor.typing();
         autoTyper.type(typeQueue[0], terminal, function() {
           cursor.idle();
-          inputLog.push(typeQueue[0]);
+          inputLog.unshift(typeQueue[0]);
           typeQueue.shift();
           writing = false;
           readied = false; //since we used up the ready from last time.
@@ -170,23 +216,158 @@ function Terminal(properties) {
       }
     }
   }
-  var listen = function(callback) {           //TODO FINISH FUNCTION TODO TODO TODO
+  var listen = function(callback = () => {return;}) {
     //make the terminal ready to accept input
+      var cursorSetter;
       if (writable && !writing && !typable) {
-      if (!readied) {
-        ready();
-      }
-      //bind key listeners
-      terminal.bind();
-      //bind event handlers
-      callback();
+        if (!readied) {
+          ready();
+        }
+        writing = true;
+        cursor.idle();
+        //create local instance of unbinder using callback
+        var unbind = function() {
+          if (window.removeEventListener) {
+            window.removeEventListener("keydown", keyhandler);
+          } else if (window.detachEvent) {
+            window.detachEvent("keydown", keyhandler);
+          }
+        }
+        //Proably doesn't handle all events
+        var keyhandler = function(event) {
+          clearInterval(cursorSetter);
+          cursor.typing();
+          cursorSetter = setTimeout(cursor.idle, 500);
+          switch(event.key) {
+            case "Enter":
+              inputLog.unshift(terminal.getText());
+              temp = "";
+              inputIndex = 0;
+              cursor.idle();
+              writing = false;
+              readied = false;
+              unbind();
+
+                terminal.removeBuffer();
+                terminal.enter();
+              callback();
+              process();
+              break;
+            case "ArrowRight":
+              terminal.right();
+              break;
+            case "ArrowLeft":
+              terminal.left();
+              break;
+            case "ArrowUp":
+              if (inputLog.length > 0) {
+                if (inputIndex === 0) {
+                  temp  = terminal.getText();
+                }
+                inputIndex = Math.min(inputLog.length, ++inputIndex);
+                cursor.reset();
+                terminal.type(inputLog[inputIndex-1]);
+              }
+              break;
+            case "ArrowDown":
+              if (inputLog.length > 0) {
+                inputIndex = Math.max(0, --inputIndex);
+                if (inputIndex === 0) {
+                  cursor.reset();
+                  terminal.type(temp);
+                } else {
+                  cursor.reset();
+                  terminal.type(inputLog[inputIndex-1]);
+                }
+              }
+              break;
+            case "Backspace":
+              terminal.backspace();
+              break;
+            case "Delete":
+              terminal.delete();
+              break;
+            case "Space":
+              terminal.type("&nbsp");
+              break;
+            case "Shift":
+              break;
+            case "Tab":
+              break;
+            case "CapsLock":
+              break;
+            case "Escape":
+              break;
+            case "End":
+              break;
+            case "Home":
+              break;
+            case "PageUp":
+              break;
+            case "PageDown":
+              break;
+            case "Control":
+              break;
+            case "Meta":
+              break;
+            case "Alt":
+              break;
+            case "WakeUp":
+              break;
+            case "F1":
+              break;
+            case "F2":
+              break;
+            case "F3":
+              break;
+            case "F4":
+              break;
+            case "F5":
+              break;
+            case "F6":
+              break;
+            case "F7":
+              break;
+            case "F8":
+              break;
+            case "F9":
+              break;
+            case "F10":
+              break;
+            case "F11":
+              break;
+            case "F12":
+              break;
+            default:
+              terminal.type(event.key);
+          }
+        }
+
+        //bind events
+        if (window.addEventListener) {
+          window.addEventListener("keydown", keyhandler);
+        } else if (window.attachEvent) {
+          window.attachEvent("keydown", keyhandler);
+        }
       } else {
-        return {func:listen, callback: callback}
+        return {func:listen, callback: callback};
       }
 
   }
-  var stop = function() {
 
+  var stop = function(callback = () => {return;}) {
+
+      var unbind = function() {
+        if (window.removeEventListener) {
+          window.removeEventListener("keydown", keyhandler);
+        } else if (window.detachEvent) {
+          window.detachEvent("keydown", keyhandler);
+        }
+        unready();
+        callback();
+      }
+
+    unbind();
   }
 
   this.clear = function(callback = function() {}) {
@@ -227,8 +408,8 @@ function Terminal(properties) {
         stop();
         typable = false;
       }
-      terminal.enter();
       terminal.removeBuffer();
+      terminal.enter();
       cursor.kill();
       autoTyper.kill(terminal);
     }
@@ -244,13 +425,8 @@ function Terminal(properties) {
 
 }
 
-
-// Lets define the various objects that are going to be interacting to make this terminal happen
-
-/** I don't want my terminal object to affect the html directly,
-*  instead, I want it to interface through a html interface
-*/
-function Interactor(Selector, Rows, Cols) {               // TODO: implement cursor shifting, backspacing, and delete
+/** Lets define the various objects that are going to be interacting to make this terminal happen */
+function Interactor(Selector, Rows, Cols) {
   const selector = Selector;
   const terminal = $(selector);
   const rows = Rows;
@@ -271,6 +447,10 @@ function Interactor(Selector, Rows, Cols) {               // TODO: implement cur
   var clear = this.clear = function() {
     terminal.html("");
   };
+  this.getText = function() {
+      console.log($(selector + ' .buffer').text());
+    return $(selector + ' .buffer').text();
+  }
   //creates new buffer
   this.createBuffer = function() {
     $(selector).append('<span class="buffer"></span>');
@@ -278,6 +458,7 @@ function Interactor(Selector, Rows, Cols) {               // TODO: implement cur
   //only call remove buffer if it is the last element in the terminal
   this.removeBuffer = function() {
     var text = $(selector + ' .buffer').text();
+    console.log(text);
     $(selector + ' .buffer').remove();
     $(selector).append(text);
   }
@@ -285,6 +466,7 @@ function Interactor(Selector, Rows, Cols) {               // TODO: implement cur
   var write = this.write = function(string) {
     terminal.append(string);
   };
+
   //inserts on current line, but then returns the output
   this.writeln = function(string) {
     write(string);
@@ -298,44 +480,60 @@ function Interactor(Selector, Rows, Cols) {               // TODO: implement cur
   //inserts string before the cursor
   this.type = function(string) {
     scroll();
-    $( selector + ' .cursor').before(string);
+    $( selector + ' .prev').append(string);
   }
   var scroll = this.scroll = function() {
       //keep cursor scrolled to the bottom
       terminal.scrollTop(terminal[0].scrollHeight);
   }
-
+  //moves cursor to left if there is space
   this.left = function() {
-
+    var before = $(selector + ' .prev').text().slice(-1);
+    if (before !== "") {
+      //perform the shift: first move cursor to next, then move prev to cursor, then delete last thing from prev
+      $(selector + " .next").prepend($(selector + ' .cursor').text());
+      $(selector + ' .cursor').text(before);
+      $(selector + ' .prev').text(function (_,txt) {
+        return txt.slice(0, -1);
+      });
+    }
   }
+  //moves cursor right if there is space
   this.right = function() {
-
+    var after = $(selector + ' .next').text().slice(0,1);
+    if (after !== "" ) {
+      $(selector + " .prev").append($(selector + ' .cursor').text());
+      $(selector + ' .cursor').text(after);
+      $(selector + ' .next').text(function (_,txt) {
+      return txt.slice(1, -1);
+      });
+    }
   }
   //deletes the character before the cursor, unless at the begining, in which case it does nothing
   this.backspace = function() {
-
-  }
-  // deletes the character at the cursor, and shifts character after it into itself, unless it is the last character, in which case it does nothing
-  this.delete = function() {
-    console.log($( selector + ' .cursor + *').text());
-    if($( selector + ' .cursor + *').text()) {
-      console.log("stuff after cursor");
-    } else {
-      console.log("no stuff after cursor");
+    var before = $(selector + ' .prev').text().slice(-1);
+    if (before !== "") {
+      //perform the shift: first move cursor to next, then move prev to cursor, then delete last thing from prev
+      $(selector + ' .prev').text(function (_,txt) {
+        return txt.slice(0, -1);
+      });
     }
   }
-  //TODO shift the cursor - left or right
-  //handle deletion, create local closure where the html is being set to exactly some string,
-  // and as the string is updated, the html is too, (to handle backspacing)
+  this.delete = function() {
+    var after = $(selector + ' .next').text().slice(0,1);
+    if (after !== "") {
+      $(selector + ' .cursor').text(after);
+      $(selector + ' .next').text(function (_,txt) {
+      return txt.slice(1);
+      });
+    }
+  }
 
-  // in order TODO this, You will need to call the JQuery.text() operation on the current typebuffer<span>
-  // also implement a way to create a typebuffer and remove it without removing its contents.
+  //handle deletion
+
 }
 
-/** The cursor object will be a simple way to insert text and make the terminal look more realistic
-* all the html insertion will be handled by the Interactor,
- hence why it must be feed to the cursor object
-*/
+/** The cursor object will be a simple way to insert text and make the terminal look more realistic */
 function Cursor(Selector, Delay) {
   this.delay = Delay;
   var typing = false;
@@ -359,11 +557,11 @@ function Cursor(Selector, Delay) {
     }
     //Change the html state of the cursor
     if (solidState) {
-      $(selector + ' .cursor').css('background-color','#FFFFFF');
-      $(selector + ' .cursor').css('color','#FF8000');
+      $(selector + ' .cursor').removeClass('cursor-none');
+      $(selector + ' .cursor').addClass('cursor-solid');
     } else {
-        $(selector + ' .cursor').css('background-color','#FF8000');
-        $(selector + ' .cursor').css('color','#FFFFFF');
+        $(selector + ' .cursor').addClass('cursor-solid');
+        $(selector + ' .cursor').addClass('cursor-none');
     }
   }
   this.idle = function() {
@@ -375,7 +573,9 @@ function Cursor(Selector, Delay) {
   //reset the state of the cursor by first deleting it then re-adding it, purely HTML changes
   this.reset = function() {    //once the cursor is removed
     $(selector +' .cursor').remove();
-    $(selector +' .buffer').append('<span class="cursor">&nbsp</span><span>h</span>'); //TODO I ONLY GET OUTPUT IF THERE IS A SPAN TAG AFTER THE ELEMENT
+    $(selector +' .prev').remove();
+    $(selector +' .next').remove();
+    $(selector +' .buffer').append('<span class="prev"></span><span class="cursor">&nbsp</span><span class="next"></span>');
   }
   //pause cursor animation
   this.pause = function() {
@@ -400,40 +600,8 @@ function Cursor(Selector, Delay) {
   }
 }
 
-// I am using contracts to restrict the type of the input
-const createContract = function(type) {
-  if (typeof type === "string") {
-    return function(x) {
-      if (typeof x === type) {
-        return x;  //return original object
-      } else {
-        throw new TypeError("Expected " + type + ", but recieved " + typeof x);
-      }
-    }
-  } else {
-    throw new TypeError("createContract expects a string");
-  }
-}
-
-const bool = createContract('boolean');
-const num = createContract('number');
-const obj = createContract('object');
-const str = createContract('string');
-const func = createContract('function');
-const undef = createContract('undefined');
-
-// I know this isn't how maybe works, but it works for my purposes
-const maybe = function(contract, other) {
-  return function(item) {
-    if (item) {
-      return contract(item);
-    } else {
-      return other;
-    }
-  }
-}
-
-function AutoTyper(properties) {                          // TODO introduce Typing errors TODO TODO
+/** The Autotyper handles trying to type like a human. Maybe in a future version, I can make it create KeyBoard Events, in order to simplify the input code */
+function AutoTyper(properties) {
   //recieved from the properties of the console
   obj(properties);
   var speed = num(properties.speed);
@@ -467,12 +635,48 @@ function AutoTyper(properties) {                          // TODO introduce Typi
     var buffer = string;
     var recursiveExecutuion = function() {
       if(buffer.length > 0) {
-        AnimationID = setTimeout(() => {
-          Interactor.type(buffer[0]);
-          Interactor.delete();
-          buffer = buffer.slice(1);
-          recursiveExecutuion();
-        }, generateTime());
+        if ((Math.random() > accuracy) && !(/[^a-zA-Z0-9]/.test(buffer[0]))) {
+          //we screw up the current letter
+          AnimationID = setTimeout(() => {
+            var possible = 'qwertyuiopasdfghjklzxcvbnm';
+            if (!isNaN(buffer[0])) {
+              possible = '1234567890';
+            } else if (buffer === buffer.toUpperCase()) {
+              var possible = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+            }
+            possible.replace(buffer[0], "");
+            Interactor.type(possible.charAt(Math.floor(Math.random() * possible.length)));
+            //buffer = buffer.slice(1);
+            //here is where we decide to make another mistake, based on the momentum,
+            // the higher the momentum, the more likely, they will keep typing.
+            //we then, after the mistake is realized, we hit backspace a bunch until we got back to the original
+            //decide to keep going
+            var mistakes = Math.min( Math.max(Math.ceil(momentum * Math.random()), 1), buffer.length);
+            var iter = 1;
+            var timer = function(func, next) {
+              if (iter < mistakes) {
+                setTimeout(() => {
+                  func(buffer[iter]);
+                  iter++;
+                  timer(func, next);
+                }, generateTime());
+              } else {
+                next();
+              }
+            }
+            timer(Interactor.type,() => {
+              iter = 0;
+              timer(Interactor.backspace, recursiveExecutuion);
+            });
+          }, generateTime());
+        } else {
+          //successfully typed a letter
+          AnimationID = setTimeout(() => {
+            Interactor.type(buffer[0]);
+            buffer = buffer.slice(1);
+            recursiveExecutuion();
+          }, generateTime());
+        }
       } else {
         Interactor.removeBuffer();
         Interactor.enter();
@@ -482,7 +686,6 @@ function AutoTyper(properties) {                          // TODO introduce Typi
     recursiveExecutuion();
   };
 }
-
 function load(terminal, cb) {
   terminal.clear();
   terminal.out('Loading', function() {
@@ -505,6 +708,13 @@ function load(terminal, cb) {
   });
 }
 
+function kernel(terminal) {
+  terminal.in(false, () => {
+    terminal.out("Unimplemented", function() {
+      kernel(terminal);
+    });
+  });
+};
 
 $(document).ready(() => {
   var terminal = new Terminal({
@@ -518,27 +728,27 @@ $(document).ready(() => {
   $('#term').removeClass("compact");
   $('#term').css('font-size', '1.5em');
 
-  terminal.start(false, () => {console.log("ready")});
+  terminal.start(false, () => {console.log("terminal ready")});
   load(terminal, function() {
-    terminal.clear();
-    terminal.out("Welcome to Angel's Personal website", function() {
-      setTimeout(function() {
-        terminal.out("");
-        terminal.out("Angel :: (Code a) => Caffeine -> a");
-        terminal.in("cat readme.txt");
-        terminal.out("");
-        terminal.out("This website is organized into several parts:");
-        terminal.out("* About Me - Provides an simple bio about my early experiences in programming, and my time at MIT.");
-        terminal.out("* Resume - My resume is rendered here in HTML for your viewing convenience. Alternatively, you can download a pdf of it.");
-        terminal.out("* Gallery - I have a gallery of projects that I have worked on recently, including this web based terminal emulator.");
-        terminal.out("* Blog - I currently do not have a blog, but if I did, I would link to it here.");
-        terminal.out("* Contact - Provides a multitide of ways to get in touch with me.");
-        terminal.out("");
-        terminal.out("You can also play around with this terminal if you'd like, type `man` for a list of help options");
-        terminal.out("");
-        terminal.head("<span class='head'>guest@biohazard-cafe:~$ </span>")
-        terminal.in(false, function(input) {});
-      }, 200);
-    });
+  terminal.clear();
+  terminal.out("Welcome to Angel's Personal website", function() {
+  setTimeout(function() {
+  terminal.out("");
+  terminal.out("Angel :: (Code a) => Caffeine -> a");
+  terminal.in("cat readme.txt");
+  terminal.out("");
+  terminal.out("This website is organized into several parts:");
+  terminal.out("* About Me - Provides an simple bio about my early experiences in programming, and my time at MIT.");
+  terminal.out("* Resume - My resume is rendered here in HTML for your viewing convenience. Alternatively, you can download a pdf of it.");
+  terminal.out("* Gallery - I have a gallery of projects that I have worked on recently, including this web based terminal emulator.");
+  terminal.out("* Blog - I currently do not have a blog, but if I did, I would link to it here.");
+  terminal.out("* Contact - Provides a multitide of ways to get in touch with me.");
+  terminal.out("");
+  terminal.out("This terminal, does not yet implemtent functions typical of a terminal program. But you can still type into it.");
+  terminal.out("");
+  terminal.head("<span class='head'>guest@biohazard-cafe:~$ </span>")
+  kernel(terminal);
+  }, 200);
+  });
   });
 });

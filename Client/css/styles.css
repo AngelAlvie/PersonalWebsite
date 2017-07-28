@@ -17,13 +17,19 @@ background-size: cover;
 }
 
 /* used for terminal thingy */
-.head, .cursor {
+.head {
   color: #FF8000;
 }
-/* Just for testing*/
-.buffer {
-  background-color: #0000FF;
+.cursor-solid {
+  background-color:#FFFFFF;
+  color:#FF8000;
 }
+.cursor-none {
+  background-color:#FF8000;
+  color:#FFFFFF;
+}
+/* Just for testing*/
+
 
 #term::-webkit-scrollbar {
     width: 5px;
