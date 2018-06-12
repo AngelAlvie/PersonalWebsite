@@ -1,0 +1,10 @@
+When putting these files on AFS, make sure you give permission for the server to read the files and directories like this:
+
+fs sa <dir name> system:anyuser rl
+
+or to look at files:
+
+fs la <dir name>
+
+
+Also, If I want to create an html document from this, run `htlatex <tex document here>`

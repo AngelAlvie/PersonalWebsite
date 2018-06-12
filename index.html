@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" type="image/x-icon" href="img/logo.png" />
+  <title>alvareza | Home</title>
+  <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <script
+   src="https://code.jquery.com/jquery-3.1.1.min.js"
+   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+   crossorigin="anonymous"></script>
+  <script src="js/semantic.min.js"></script>
+</head>
+<body>
+<div class="ui massive top fixed inverted menu">
+  <div class="ui container">
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="home">
+        <div class="visible content">
+          <i class="home icon"></i>
+        </div>
+        <div class="hidden content">
+          Home
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="about">
+        <div class="visible content">
+          <i class="student icon"></i>
+        </div>
+        <div class="hidden content">
+          About
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="resume">
+        <div class="visible content">
+          <i class="file text icon"></i>
+        </div>
+        <div class="hidden content">
+          Résumé
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="gallery">
+        <div class="visible content">
+          <i class="table icon"></i>
+        </div>
+        <div class="hidden content">
+          Gallery
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="blog">
+        <div class="visible content">
+          <i class="newspaper icon"></i>
+        </div>
+        <div class="hidden content">
+          Blog
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="ui animated attached black button" tabindex="0" data-tab="contact">
+        <div class="visible content">
+          <i class="mail icon"></i>
+        </div>
+        <div class="hidden content">
+          Contact
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ui tab full active" data-tab="home">
+  <div class="full center terminalContainer">
+    <div id="term" class="ui compact center aligned inverted segment">
+      <h1>{- Angel Alvarez -}</h1>
+      <h3>{- Computer Science -}</h3>
+      <h3>{- MIT Class of 2020 -}</h3>
+    </div>
+  </div>
+</div>
+
+<div class="ui tab" data-tab="about">
+      <div class="ui txt padded container segment">
+        <div class = 'center'>
+          <img class="ui tiny image circular" src="img/personal_logo_ghost.svg" style="display: inline;"/>
+          <h1 class="ui header" style="display: inline; margin-right:30px;" > About Me </h1>
+        </div>
+        <h3 class="ui horizontal divider header">
+          <i class="child icon"></i>
+          Early Life
+        </h3>
+        <p>
+          My interest in computer science and programming started in elementary school, where I took a community college class on robotics over the summer.
+          Since then, I've been enthralled by the functions of electronic devices.
+          I went to Natomas Pacific Pathways Prep (Otherwise known as NP3) for high school, where I learned about law and civic engagement.
+          While in high school, I continued my interest in electronics by programming Arduino and Basic Stamp micro-controllers for small hardware projects.
+          Programming those devices lead me into software development.
+          I moved from Arduino to Processing then to Java and onward.
+        </p>
+        <h3 class="ui horizontal divider header">
+          <i class="university icon"></i>
+          At MIT
+        </h3>
+        <p>
+          I came to MIT in the fall of 2016. While here, I joined two clubs renowned for empowering students with access to technology:
+          The <a href="https://sipb.mit.edu/">Student Information Processing Board</a> (SIPB), and <a href="http://techx.mit.edu/">TechX</a>.
+          The SIPB has a focus on providing computing services to the MIT community.
+          These services include <a href="https://scripts.mit.edu/">scripts</a>, <a href="http://xvm.mit.edu/">XVM</a>, and <a href="https://debathena.mit.edu/">Debathena</a>.
+          TechX is an Umbrella organization for several organizations, each tasked with a specific means of connecting students with technology.
+          These include the student hackathons <a href="https://hackmit.org/">HackMIT</a> and <a href="https://makemit.org/">MakeMIT</a>, as well as <a href="http://xfair.io/">XFair</a>, a career fair in February for MIT students.
+          Other committees include <a href="https://projx.mit.edu/">ProjX</a>, <a href="http://think.mit.edu/">Think</a> and <a href="https://blueprint.hackmit.org/">Blueprint</a>.
+          I'm part of two subcommittees of TechX: ProjX and Dev-ops.
+          ProjX distributes thousands of dollars to student projects every year, along with providing support and resources to make student projects succeed.
+          TechX Dev-ops is an internal committee tasked with building and deploying software solutions that all of techX uses.
+        </p>
+        <p>
+          Despite having worked on software development and app deployment in recent years, I am interested in transitioning into the field of artificial intelligence and using mathematics and functional programming to create secure programs.
+        </p>
+      </div>
+</div>
+
+<div class="ui tab full" data-tab="resume">
+  <div class="ui container" style="margin-top: 75px; margin-bottom: 25px;">
+    <div class = "ui attached message">
+      <i class= "close icon"></i>
+      <p>A pdf version of this document is available <a href="./Angel_Alvarez_Resume.pdf" download>here</a></p>
+    </div>
+    <div class="ui attached fluid segment">
+        <iframe src="./Angel_Alvarez_Resume.html" width="100%" height="1300">
+        </iframe>
+    </div>
+  </div>
+</div>
+
+<div class="ui tab " data-tab="gallery">
+  <div class="ui txt container">
+    <div class="ui four doubling cards">
+      <a class="ui card " href="https://github.com/techx/gallexy" style="text-decoration:none; color:black;">
+        <div class="content">
+          <h1 class="header">GalleXy</h1>
+          <div class="meta">
+            TechX 2016
+          </div>
+          <div class="description">
+            <p>A project gallery for TechX. This project aims to give student projects an online presence.</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="ui card" href="https://github.com/AngelAlvie/terminal.js" style="text-decoration:none; color:black;">
+        <div class="content">
+          <h1 class="header">Terminal.js</h1>
+          <div class="meta">Personal Project 2017</div>
+          <div class="description">
+            <p>A clientside terminal emulator for websites with a simple UI.</p>
+          </div>
+        </div>
+      </a>
+      <a class="ui card" href="https://github.com/AngelAlvie/EmailBasedLotto" style="text-decoration:none; color:black;">
+        <div class="content">
+          <h1 class="header">Kerberos Based Lotto</h1>
+          <div class="meta">
+            ProjX 2017
+          </div>
+          <div class="description">
+            <p>A simple Node.JS web-app to record and generate kerberos entries for ProjXpo.</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="ui card" href="https://github.com/AngelAlvie/Constellation" style="text-decoration:none; color:black;">
+        <div class="content">
+          <h1 class="header">Constellation</h1>
+          <div class="meta">
+            MIT 6.148 IAP 2017
+          </div>
+          <div class="description">
+            <p>A web application for presenting content in a networked fashsion, instead of a more traditional linear fashion.</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="ui card " href="https://github.com/AngelAlvie/PersonalWebsite" style="text-decoration:none; color:black;">
+        <div class="content">
+          <h1 class="header">Personal Website</h1>
+          <div class="meta">
+            Personal Project 2016
+          </div>
+          <div class="description">
+            <p>Link to the the code for this website.</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="ui card " href="https://github.com/AngelAlvie/Galaxy-s-Edge" style="text-decoration:none; color:black;">
+        <div class="content">
+          <h1 class="header">Galaxy's Edge</h1>
+          <div class="meta">
+            Personal Project 2017
+          </div>
+          <div class="description">
+            <p>A side project of mine, A 2D Java space exploration and building game.</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="ui card " href="https://github.com/AngelAlvie/Tetris-3D" style="text-decoration:none; color:black;">
+        <div class="content">
+          <h1 class="header">Tetris 3D</h1>
+          <div class="meta">
+            Personal Project 2016
+          </div>
+          <div class="description">
+            <p>A test of orthagonal rendering, an implementation of the classic game Tetris using 7-polycubes.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="ui tab full" data-tab="blog">
+  <div class="full center">
+    <div class="ui text inverted segment">
+      <h1 class="ui header">under construction, please comeback later.</h1>
+    </div>
+  </div>
+</div>
+
+<div class="ui tab full" data-tab="contact">
+  <div class="full center">
+    <div>
+      <a href="https://www.facebook.com/angel.alvarezii/" class="circular ui icon facebook massive button">
+        <i class="facebook icon"></i>
+      </a>
+      <a href="https://twitter.com/angelgabalvarez" class="circular ui icon twitter massive button">
+        <i class="twitter icon"></i>
+      </a>
+      <a href="https://github.com/AngelAlvie" class="circular ui icon massive black button">
+        <i class="github icon"></i>
+      </a>
+      <a href="mailto:alvareza@mit.edu" class="circular ui icon google plus massive button">
+        <i class="mail icon"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/angel-alvarez-mit/" class="circular ui icon linkedin massive button">
+        <i class="linkedin icon"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+<!-- Scripts here -->
+<script src="js/terminal.js"></script>
+<script src="js/index.js"></script>
